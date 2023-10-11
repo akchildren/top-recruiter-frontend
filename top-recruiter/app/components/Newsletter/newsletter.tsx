@@ -24,7 +24,7 @@ export default function Simple() {
       minH={'40vh'}
       align={'center'}
       justify={'center'}
-      bg={useColorModeValue('orange.300')}>
+      bg={useColorModeValue('orange.300','orange.300')}>
       <Container
         maxW={'lg'}
         bg={useColorModeValue('white', 'whiteAlpha.100')}
