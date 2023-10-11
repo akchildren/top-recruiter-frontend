@@ -79,7 +79,7 @@ export default function Simple() {
           </FormControl>
           <FormControl w={{ base: '100%', md: '40%' }}>
             <Button
-              colorScheme={state === 'success' ? 'green' : 'blue'}
+              colorScheme={state === 'success' ? 'green' : 'orange'}
               isLoading={state === 'submitting'}
               w="100%"
               type={state === 'success' ? 'button' : 'submit'}>
