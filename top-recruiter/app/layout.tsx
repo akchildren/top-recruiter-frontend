@@ -1,6 +1,7 @@
 'use client'
 // app/layout.tsx
 import { Providers } from "./providers";
+import WithSubnavigation from './components/Navigation/nav';
 
 export default function RootLayout({
   children,
@@ -11,6 +12,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
+          <WithSubnavigation/>
           {children}
         </Providers>
       </body>
