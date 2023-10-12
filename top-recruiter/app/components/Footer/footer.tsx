@@ -16,6 +16,59 @@ import { ReactNode } from 'react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 
+export default function Footer() {
+  return (
+    <Box
+      bg={useColorModeValue('gray.50', 'gray.900')}
+      color={useColorModeValue('gray.700', 'gray.200')}>
+      <Container as={Stack} maxW={'6xl'} py={10}>
+        <SimpleGrid
+          templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
+          spacing={8}>
+          <Stack spacing={6}>
+            <Copyright />
+            <SocialMediaLinks />
+          </Stack>
+
+          <FooterLinks />
+          <Newsletter />
+
+        </SimpleGrid>
+      </Container>
+    </Box>
+  )
+}
+
+const today = new Date();
+const year = today.getFullYear();
+
+const Copyright = () => {
+  return (
+    <Stack>
+      <Box>
+        <Logo color={useColorModeValue('gray.700', 'white')} />
+      </Box>
+      <Text fontSize={'sm'}>© {year} Top Recruiter. All rights reserved</Text>
+    </Stack>
+  )
+}
+
+const SocialMediaLinks = () => {
+  return (
+    <Stack direction={'row'} spacing={6}>
+      <SocialButton label={'Twitter'} href={'#'}>
+        <FaTwitter />
+      </SocialButton>
+      <SocialButton label={'YouTube'} href={'#'}>
+        <FaYoutube />
+      </SocialButton>
+      <SocialButton label={'Instagram'} href={'#'}>
+        <FaInstagram />
+      </SocialButton>
+    </Stack>
+  )
+}
+
 const Logo = (props: any) => {
   return (
     <svg height={32} viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -62,103 +115,108 @@ const SocialButton = ({
   )
 }
 
+const FooterLinks = () => {
+  return (
+    <>
+      {NAV_ITEMS.map((navItem, i) => (
+        <Stack align={'flex-start'} key={i}>
+          <ListHeader>{navItem.label}</ListHeader>
+          {navItem.children && (
+            navItem.children.map((child, i) => (
+              <Box as="a" href={child.href} key={i}>
+                {child.label}
+              </Box>
+            )
+            ))}
+        </Stack>
+      ))}
+    </>
+  )
+}
+
+const Newsletter = () => {
+  return (
+    <Stack align={'flex-start'}>
+      <ListHeader>Stay up to date</ListHeader>
+      <Stack direction={'row'}>
+        <Input
+          placeholder={'Your email address'}
+          bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+          border={0}
+          _focus={{
+            bg: 'whiteAlpha.300',
+          }}
+        />
+        <IconButton
+          bg={useColorModeValue('orange.400', 'orange.400')}
+          color={useColorModeValue('white', 'gray.800')}
+          _hover={{
+            bg: 'orange.500',
+          }}
+          aria-label="Subscribe"
+          icon={<BiMailSend />}
+        />
+      </Stack>
+    </Stack>
+  )
+}
+
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
-    <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
+    <Text fontWeight={'500'} fontSize={'lg'} mb={2} color={'gray.600'}>
       {children}
     </Text>
   )
 }
 
-const today = new Date();
-const year = today.getFullYear();
-
-export default function Footer() {
-  return (
-    <Box
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}>
-      <Container as={Stack} maxW={'6xl'} py={10}>
-        <SimpleGrid
-          templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
-          spacing={8}>
-          <Stack spacing={6}>
-            <Box>
-              <Logo color={useColorModeValue('gray.700', 'white')} />
-            </Box>
-            <Text fontSize={'sm'}>© {year} Top Recruiter. All rights reserved</Text>
-            <Stack direction={'row'} spacing={6}>
-              <SocialButton label={'Twitter'} href={'#'}>
-                <FaTwitter />
-              </SocialButton>
-              <SocialButton label={'YouTube'} href={'#'}>
-                <FaYoutube />
-              </SocialButton>
-              <SocialButton label={'Instagram'} href={'#'}>
-                <FaInstagram />
-              </SocialButton>
-            </Stack>
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Company</ListHeader>
-            <Box as="a" href={'#'}>
-              About us
-            </Box>
-            <Box as="a" href={'#'}>
-              Blog
-            </Box>
-            <Box as="a" href={'#'}>
-              Contact us
-            </Box>
-            <Box as="a" href={'#'}>
-              Pricing
-            </Box>
-            <Box as="a" href={'#'}>
-              Testimonials
-            </Box>
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Support</ListHeader>
-            <Box as="a" href={'#'}>
-              Help Center
-            </Box>
-            <Box as="a" href={'#'}>
-              Terms of Service
-            </Box>
-            <Box as="a" href={'#'}>
-              Legal
-            </Box>
-            <Box as="a" href={'#'}>
-              Privacy Policy
-            </Box>
-            <Box as="a" href={'#'}>
-              Satus
-            </Box>
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Stay up to date</ListHeader>
-            <Stack direction={'row'}>
-              <Input
-                placeholder={'Your email address'}
-                bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-                border={0}
-                _focus={{
-                  bg: 'whiteAlpha.300',
-                }}
-              />
-              <IconButton
-                bg={useColorModeValue('orange.400', 'orange.400')}
-                color={useColorModeValue('white', 'gray.800')}
-                _hover={{
-                  bg: 'orange.500',
-                }}
-                aria-label="Subscribe"
-                icon={<BiMailSend />}
-              />
-            </Stack>
-          </Stack>
-        </SimpleGrid>
-      </Container>
-    </Box>
-  )
+interface NavItem {
+  label: string
+  children?: Array<NavItem>
+  href?: string
 }
+
+
+const NAV_ITEMS: Array<NavItem> = [
+  {
+    label: 'Company',
+    children: [
+      {
+        label: 'About us',
+        href: '/about-us',
+      },
+      {
+        label: 'Blog',
+        href: '/blog',
+      },
+      {
+        label: 'Contact us',
+        href: '/contact-us',
+      },
+      {
+        label: 'Pricing',
+        href: '/pricing',
+      },
+    ],
+  },
+  {
+    label: 'Support',
+    children: [
+      {
+        label: 'Help Center',
+        href: '/help',
+      },
+      {
+        label: 'Terms of Service',
+        href: '/terms-of-service',
+      },
+      {
+        label: 'Legal',
+        href: '/legal',
+      },
+      {
+        label: 'Privacy Policy',
+        href: '/privacy-policy',
+      },
+    ]
+  },
+];
