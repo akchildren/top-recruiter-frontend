@@ -249,6 +249,7 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
     {
         label: 'Find Jobs',
+        href: '/jobs',
         children: [
             {
                 label: 'Use Default Search',
@@ -264,6 +265,7 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: 'Find Recruiters',
+        href: '/recruiters',
         children: [
             {
                 label: 'Recommended',
@@ -288,6 +290,6 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: 'CV Review',
-        href: '#',
+        href: 'cv-review',
     },
 ]
